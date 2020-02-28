@@ -32,5 +32,10 @@ namespace LanguageChange
             FrmTest test = new FrmTest();
             test.Show();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            LanguageManager.SetBindText(sender,"确定");
+        }
     }
 }

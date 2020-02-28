@@ -139,7 +139,7 @@ namespace CustomLanguage
             {
                 foreach (DataGridViewColumn col in (ctrl as DataGridView).Columns)
                 {
-                    LanguageBind bind = new LanguageBind();
+                    LanguageBind bind = new LanguageBind(col);
                     bind.PropertyChanged += (s, e) =>
                     {
                         col.HeaderText = bind.Text;
@@ -167,7 +167,7 @@ namespace CustomLanguage
             }
             else
             {
-                LanguageBind bind = new LanguageBind()
+                LanguageBind bind = new LanguageBind(ctrl)
                 {
                     Text = GetTextByLanguage("zh-cn", CurrentLanuage, ctrl.Text)
                 };
@@ -178,6 +178,22 @@ namespace CustomLanguage
                     RemoveLanguageBind(bind);
                 };
             }
+        }
+
+        /// <summary>
+        /// 获取绑定的对象
+        /// </summary>
+        public static LanguageBind GetLanguageBind(object obj)
+        {
+            var bind = AllBinds.FirstOrDefault(p=>p.BindedObj.Equals(obj));
+            return bind;
+        }
+
+        public static void SetBindText(object obj,string newText)
+        {
+            var bind = GetLanguageBind(obj);
+            if (bind != null)
+                bind.Text = GetTextByLanguage("zh-cn", CurrentLanuage, newText);
         }
 
         /// <summary>
