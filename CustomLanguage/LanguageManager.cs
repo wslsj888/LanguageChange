@@ -19,6 +19,9 @@ namespace CustomLanguage
         /// 当前语言名称
         /// </summary>
         public static string CurrentLanuage = "zh-cn";
+
+        public static event Action<string> OnCurrentLanguageChanged;
+
         #endregion
 
         #region 私有字段        
@@ -102,6 +105,16 @@ namespace CustomLanguage
         #endregion
 
         #region 公开接口
+
+        /// <summary>
+        /// 添加动态语言项
+        /// </summary>
+        /// <param name="map"></param>
+        public static void AddDynamicLanguageMap(List<LanguageMap> map)
+        {
+            AllMaps.Add(map);
+        }
+
         /// <summary>
         /// 绑定窗体/控件以及其子控件的语言
         /// </summary>
@@ -126,10 +139,13 @@ namespace CustomLanguage
             //保存到磁盘
             var filepath = "./language/current.txt";
             File.WriteAllText(filepath, languageName);
+
+            OnCurrentLanguageChanged?.Invoke(languageName);
         }
         #endregion
 
         #region 私有方法
+
         /// <summary>
         /// 新增语言绑定
         /// </summary>
@@ -222,13 +238,22 @@ namespace CustomLanguage
             }
             return oldText;
         }
+
+        /// <summary>
+        /// 通过中文获取当前语言的文本
+        /// </summary>
+        public static string GetTextByChinese(string chineseText)
+        {
+            return GetTextByLanguage("zh-cn", CurrentLanuage, chineseText);
+        }
+
         #endregion
     }
 
     /// <summary>
     /// 语言映射类
     /// </summary>
-    class LanguageMap
+    public class LanguageMap
     {
         public string LanguageName { get; set; }
         public string Text { get; set; }
