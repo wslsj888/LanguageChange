@@ -115,6 +115,11 @@ namespace CustomLanguage
             AllMaps.Add(map);
         }
 
+        public static bool ExistsMap(string chinese)
+        {
+            return AllMaps.Any(p => p.Exists(o => o.LanguageName == "zh-cn" && o.Text == chinese));
+        }
+
         /// <summary>
         /// 绑定窗体/控件以及其子控件的语言
         /// </summary>

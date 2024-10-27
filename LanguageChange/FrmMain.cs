@@ -74,8 +74,16 @@ namespace LanguageChange
                 LanguageManager.OnCurrentLanguageChanged += (s) => this.RaisePropertyChanged(nameof(Text));
             }
 
-            public void AddLog(string logContent)
+            public async void AddLog(string logContent)
             {
+                if (string.IsNullOrEmpty(logContent)) { return; }
+
+                if (!LanguageManager.ExistsMap(logContent))
+                {
+                    var newMap = new List<LanguageMap>() { new LanguageMap("zh-cn", logContent), new LanguageMap("en-us", await BaiduTranslater.Instance.GetEnglishText(logContent)) };
+                    LanguageManager.AddDynamicLanguageMap(newMap);
+                }
+
                 LogItems.Add(new LogItem() { LogTime = DateTime.Now, LogContent = logContent });
                 this.RaisePropertyChanged(nameof(Text));
             }
@@ -98,6 +106,11 @@ namespace LanguageChange
             public DateTime LogTime { get; set; }
 
             public string LogContent { get; set; }
+        }
+
+        private void btnAddLog_Click(object sender, EventArgs e)
+        {
+            this.logList.AddLog(this.textBox1.Text);
         }
     }
 }
