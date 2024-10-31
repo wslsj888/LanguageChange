@@ -125,7 +125,7 @@ namespace CustomLanguage
         /// </summary>
         /// <param name="ctrl"></param>
         public static void BindControlLanguage(Control ctrl)
-        {            
+        {
             AddLanguageBind(ctrl);
             foreach (Control c in ctrl.Controls)
             {
@@ -186,6 +186,23 @@ namespace CustomLanguage
                     tab.SelectedTab = selPage;
                 };
             }
+            else if (ctrl is ToolStrip toolStrip)
+            {
+                foreach (ToolStripItem item in toolStrip.Items)
+                {
+                    LanguageBind bind = new LanguageBind(item);
+                    bind.PropertyChanged += (s, e) =>
+                    {
+                        item.Text = bind.Text;
+                    };
+                    bind.Text = GetTextByLanguage("zh-cn", CurrentLanuage, item.Text);
+                    AllBinds.Add(bind);
+                    item.Disposed += (s, e) =>
+                    {
+                        RemoveLanguageBind(bind);
+                    };
+                }
+            }
             else
             {
                 LanguageBind bind = new LanguageBind(ctrl)
@@ -206,11 +223,11 @@ namespace CustomLanguage
         /// </summary>
         public static LanguageBind GetLanguageBind(object obj)
         {
-            var bind = AllBinds.FirstOrDefault(p=>p.BindedObj.Equals(obj));
+            var bind = AllBinds.FirstOrDefault(p => p.BindedObj.Equals(obj));
             return bind;
         }
 
-        public static void SetBindText(object obj,string newText)
+        public static void SetBindText(object obj, string newText)
         {
             var bind = GetLanguageBind(obj);
             if (bind != null)

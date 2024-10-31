@@ -112,5 +112,10 @@ namespace LanguageChange
         {
             this.logList.AddLog(this.textBox1.Text);
         }
+
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
     }
 }
