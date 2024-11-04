@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -31,11 +32,26 @@ namespace LanguageChange
             logList.AddLog("系统开始自检");
             logList.AddLog("系统自检完成");
             logList.AddLog("测试未添加的语言项");
+
+            BindingSource logSource = new BindingSource() { DataSource = logItems };
+            this.listBox1.DataSource = logSource;
+            this.listBox1.DisplayMember = nameof(LogItem.Text);
+
+            logItems.Add(new LogItem("确定"));
+            logItems.Add(new LogItem("取消"));
         }
+
+        BindingList<LogItem> logItems = new BindingList<LogItem>();
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             LanguageManager.ChangeLanguage(comboBox1.Text);
+
+            // 切换语言时，刷新日志项
+            foreach (var item in logItems)
+            {
+                item.RefreshText();
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -101,11 +117,34 @@ namespace LanguageChange
             }
         }
 
-        private class LogItem
+        private class LogItem : INotifyPropertyChanged
         {
+            public LogItem(string log = "") 
+            {
+                this.LogTime = DateTime.Now;
+                this.LogContent = log;
+            }
+
             public DateTime LogTime { get; set; }
 
             public string LogContent { get; set; }
+
+            public string Text
+            {
+                get => $"{this.LogTime.ToString("yyyy-MM-dd HH:mm:ss")} {LanguageManager.GetTextByChinese(this.LogContent)}";
+            }
+
+            public void RefreshText()
+            {
+                this.RaisePropertyChanged(nameof(Text));
+            }
+
+            public event PropertyChangedEventHandler PropertyChanged;
+
+            private void RaisePropertyChanged(string propertyName)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
 
         private void btnAddLog_Click(object sender, EventArgs e)
@@ -120,7 +159,7 @@ namespace LanguageChange
 
         private void button9_Click(object sender, EventArgs e)
         {
-            listBox1.AddItem(this.textBox1.Text);
+            logItems.Add(new LogItem(this.textBox1.Text));
         }
     }
 }

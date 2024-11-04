@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -60,6 +61,7 @@
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.logListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.button9 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -68,6 +70,7 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.logListBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -340,15 +343,19 @@
             // 
             // listBox1
             // 
+            this.listBox1.DataSource = this.logListBindingSource;
+            this.listBox1.DisplayMember = "Text";
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 12;
-            this.listBox1.Items.AddRange(new object[] {
-            "确定",
-            "取消"});
             this.listBox1.Location = new System.Drawing.Point(51, 428);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(120, 88);
+            this.listBox1.Size = new System.Drawing.Size(320, 88);
             this.listBox1.TabIndex = 12;
+            this.listBox1.ValueMember = "Text";
+            // 
+            // logListBindingSource
+            // 
+            this.logListBindingSource.DataSource = typeof(LanguageChange.FrmMain.LogList);
             // 
             // button9
             // 
@@ -389,6 +396,7 @@
             this.tabPage1.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.logListBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -428,6 +436,7 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.BindingSource logListBindingSource;
     }
 }
 
