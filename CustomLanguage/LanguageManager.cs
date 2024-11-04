@@ -203,6 +203,25 @@ namespace CustomLanguage
                     };
                 }
             }
+            else if (ctrl is ListBox listBox)
+            {
+                for (var i = 0; i < listBox.Items.Count; i++)
+                {
+                    var item = listBox.Items[i];
+                    LanguageBind bind = new LanguageBind(item);
+                    var idx = i;
+                    bind.PropertyChanged += (s, e) =>
+                    {
+                        listBox.Items[idx] = bind.Text;
+                    };
+                    bind.Text = GetTextByLanguage("zh-cn", CurrentLanuage, item.ToString());
+                    AllBinds.Add(bind);
+                    listBox.Disposed += (s, e) =>
+                    {
+                        RemoveLanguageBind(bind);
+                    };
+                }
+            }
             else
             {
                 LanguageBind bind = new LanguageBind(ctrl)
