@@ -117,5 +117,10 @@ namespace LanguageChange
         {
 
         }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            listBox1.AddItem(this.textBox1.Text);
+        }
     }
 }

@@ -237,6 +237,23 @@ namespace CustomLanguage
             }
         }
 
+        public static void AddItem(this ListBox listBox, string item)
+        {
+            var idx = listBox.Items.Count;
+            listBox.Items.Add(item);
+            LanguageBind bind = new LanguageBind(item);
+            bind.PropertyChanged += (s, e) =>
+            {
+                listBox.Items[idx] = bind.Text;
+            };
+            bind.Text = GetTextByLanguage("zh-cn", CurrentLanuage, item.ToString());
+            AllBinds.Add(bind);
+            listBox.Disposed += (s, e) =>
+            {
+                RemoveLanguageBind(bind);
+            };
+        }
+
         /// <summary>
         /// 获取绑定的对象
         /// </summary>
