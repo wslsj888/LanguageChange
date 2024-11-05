@@ -190,17 +190,7 @@ namespace CustomLanguage
             {
                 foreach (ToolStripItem item in toolStrip.Items)
                 {
-                    LanguageBind bind = new LanguageBind(item);
-                    bind.PropertyChanged += (s, e) =>
-                    {
-                        item.Text = bind.Text;
-                    };
-                    bind.Text = GetTextByLanguage("zh-cn", CurrentLanuage, item.Text);
-                    AllBinds.Add(bind);
-                    item.Disposed += (s, e) =>
-                    {
-                        RemoveLanguageBind(bind);
-                    };
+                    BindToolStripItem(item);
                 }
             }
             else if (ctrl is ListBox listBox)
@@ -234,6 +224,31 @@ namespace CustomLanguage
                 {
                     RemoveLanguageBind(bind);
                 };
+            }
+        }
+
+        private static void BindToolStripItem(ToolStripItem item)
+        {
+            LanguageBind bind = new LanguageBind(item);
+            bind.PropertyChanged += (s, e) =>
+            {
+                item.Text = bind.Text;
+            };
+            bind.Text = GetTextByLanguage("zh-cn", CurrentLanuage, item.Text);
+            AllBinds.Add(bind);
+            item.Disposed += (s, e) =>
+            {
+                RemoveLanguageBind(bind);
+            };
+            if (item is ToolStripDropDownButton ddBtn)
+            {
+                foreach (ToolStripItem cItem in ddBtn.DropDownItems)
+                    BindToolStripItem(cItem);
+            }
+            else if (item is ToolStripMenuItem menuItem)
+            {
+                foreach (ToolStripItem cItem in menuItem.DropDownItems)
+                    BindToolStripItem(cItem);
             }
         }
 

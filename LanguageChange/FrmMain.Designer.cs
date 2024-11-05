@@ -63,6 +63,11 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.logListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.button9 = new System.Windows.Forms.Button();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.确定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.取消ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.取消ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.确定ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -319,7 +324,8 @@
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton1,
-            this.toolStripLabel1});
+            this.toolStripLabel1,
+            this.toolStripDropDownButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1009, 25);
@@ -366,6 +372,46 @@
             this.button9.Text = "确定Item";
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.确定ToolStripMenuItem,
+            this.取消ToolStripMenuItem});
+            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 22);
+            this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
+            // 
+            // 确定ToolStripMenuItem
+            // 
+            this.确定ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.取消ToolStripMenuItem1});
+            this.确定ToolStripMenuItem.Name = "确定ToolStripMenuItem";
+            this.确定ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.确定ToolStripMenuItem.Text = "确定";
+            // 
+            // 取消ToolStripMenuItem
+            // 
+            this.取消ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.确定ToolStripMenuItem1});
+            this.取消ToolStripMenuItem.Name = "取消ToolStripMenuItem";
+            this.取消ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.取消ToolStripMenuItem.Text = "取消";
+            // 
+            // 取消ToolStripMenuItem1
+            // 
+            this.取消ToolStripMenuItem1.Name = "取消ToolStripMenuItem1";
+            this.取消ToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.取消ToolStripMenuItem1.Text = "取消";
+            // 
+            // 确定ToolStripMenuItem1
+            // 
+            this.确定ToolStripMenuItem1.Name = "确定ToolStripMenuItem1";
+            this.确定ToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.确定ToolStripMenuItem1.Text = "确定";
             // 
             // FrmMain
             // 
@@ -437,6 +483,11 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.BindingSource logListBindingSource;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripMenuItem 确定ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 取消ToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem 取消ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 确定ToolStripMenuItem1;
     }
 }
 
